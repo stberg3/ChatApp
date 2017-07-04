@@ -12,7 +12,7 @@ io.on('connection', function(socket){
 	console.log('Oh look, a user connected!');
 
 	socket.on('chat message', function(message){
-		console.log('\tmessage:' + message);
+		io.emit('chat message', message);
 	});
 
 	socket.on('disconnect', function(){
