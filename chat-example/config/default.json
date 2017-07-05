@@ -1,0 +1,6 @@
+{
+  "redisStore" : {
+    "url" : "//localhost:9001",
+    "secret": ""
+  }
+}
