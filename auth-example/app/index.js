@@ -32,7 +32,8 @@ passport.deserializeUser(function(obj, done) {
 
 // Use the LocalStrategy within Passport to login/"signin" users.
 passport.use('local-signin', new LocalStrategy(
-  {passReqToCallback : true}, //allows us to pass back the request to the callback
+  //allows us to pass back the request to the callback
+  {passReqToCallback : true},
   function(req, username, password, done) {
     funct.localAuth(username, password)
     .then(function (user) {
@@ -43,7 +44,8 @@ passport.use('local-signin', new LocalStrategy(
       }
       if (!user) {
         console.log("COULD NOT LOG IN");
-        req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
+        //inform user could not log them in
+        req.session.error = 'Could not log user in. Please try again.';
         done(null, user);
       }
     })
@@ -52,6 +54,7 @@ passport.use('local-signin', new LocalStrategy(
     });
   }
 ));
+
 // Use the LocalStrategy within Passport to register/"signup" users.
 passport.use('local-signup', new LocalStrategy(
   {passReqToCallback : true}, //allows us to pass back the request to the callback
@@ -123,14 +126,12 @@ app.get('/signin', function(req, res){
 app.post('/local-reg', passport.authenticate('local-signup', {
                                                 successRedirect: '/',
                                                 failureRedirect: '/signin'
-                                              })
-);
+                                              }));
 
 app.post('/local-reg', passport.authenticate('local-signin', {
                                                 successRedirect: '/',
                                                 failureRedirect: '/signin'
-                                              })
-);
+                                              }));
 
 app.get('/logout', function(req, res){
   var name = req.user.username;
@@ -142,6 +143,7 @@ app.get('/logout', function(req, res){
 
 
 //===============PORT=================
-var port = process.env.PORT || 5000; //select your port or let it pull from your .env file
+//select your port or let it pull from your .env file
+var port = process.env.PORT || 5000;
 app.listen(port);
 console.log("listening on " + port + "!");
